@@ -70,9 +70,9 @@
       become: yes
       apt: name={{ item }}
       with_items:
-        - libmysqlclient-dev
         - mysql-server
         - mysql-client
+        - libmysqlclient-dev
       when: install_mysql
 
     - name: Install Postgresql
