@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
 mkdir -p /etc;
-cp /tmp/bento-metadata.json /etc/bento-metadata.json;
-chmod 0444 /etc/bento-metadata.json;
-rm -f /tmp/bento-metadata.json;
+cp /tmp/metadata.json /etc/metadata.json;
+chmod 0444 /etc/metadata.json;
+rm -f /tmp/metadata.json;
