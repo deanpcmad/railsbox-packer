@@ -1,0 +1,128 @@
+---
+- hosts: all
+  become: no
+  become_user: root
+  become_method: sudo
+  vars:
+    ruby_version: 2.3.1
+    install_redis: yes
+    install_postgres: yes
+    install_mysql: yes
+    install_sqlite: yes
+  tasks:
+    - name: Pause execution while updates install
+      pause: seconds=60 prompt="Paused while Ubuntu installs security updates"
+
+    - name: Add Postgresql Repo
+      become: yes
+      apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+      when: install_postgres
+
+    - name: Add Postgresql Repo Key
+      become: yes
+      apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        state=present
+      when: install_postgres
+
+    - name: Update Apt Cache
+      become: yes
+      apt: update_cache=yes
+
+    - name: Install Ruby Dependencies
+      become: yes
+      apt: name={{item}}
+      with_items:
+        - git
+        - git-core
+        - curl
+        - zlib1g-dev
+        - build-essential
+        - libssl-dev
+        - libreadline-dev
+        - libyaml-dev
+        - libxml2-dev
+        - libxslt1-dev
+        - libcurl4-openssl-dev
+        - python-software-properties
+        - libffi-dev
+
+    - name: Install Nodejs Runtime
+      become: yes
+      apt: name={{item}}
+      with_items:
+        - nodejs
+        - npm
+
+    - name: Install Redis
+      become: yes
+      apt: name=redis-server
+      when: install_redis
+
+    - name: Install Sqlite
+      become: yes
+      apt: name={{ item }}
+      with_items:
+        - libsqlite3-dev
+        - sqlite3
+      when: install_sqlite
+
+    - name: Install Mysql
+      become: yes
+      apt: name={{ item }}
+      with_items:
+        - libmysqlclient-dev
+        - mysql-server
+        - mysql-client
+      when: install_mysql
+
+    - name: Install Postgresql
+      become: yes
+      apt: name={{ item }}
+      with_items:
+        - postgresql-common
+        - postgresql-9.4
+        - libpq-dev
+      when: install_postgres
+
+    - name: Clone rbenv to ~/.rbenv
+      git: repo=https://github.com/sstephenson/rbenv.git
+        dest=~/.rbenv
+        accept_hostkey=true
+        force=yes
+
+    - name: Clone ruby-build to ~/.rbenv
+      git: repo=https://github.com/sstephenson/ruby-build.git
+        dest="~/.rbenv/plugins/ruby-build"
+        accept_hostkey=true
+        force=yes
+
+    - name: Clone rbenv-vars to ~/.rbenv
+      git: repo=https://github.com/sstephenson/rbenv-vars.git
+        dest="~/.rbenv/plugins/rbenv-vars"
+
+    - name: Add rbenv To Profile
+      template: src=templates/rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
+      become: true
+
+    - name: Check For Ruby {{ ruby_version }}
+      shell: bash -lc "rbenv versions | grep {{ ruby_version }}"
+      register: ruby_installed
+      changed_when: false
+      ignore_errors: yes
+      always_run: yes
+
+    - name: Install Ruby
+      shell: bash -lc "rbenv install {{ ruby_version }} && rbenv rehash"
+      when:
+        - ruby_installed.rc != 0
+
+    - name: Set Global Ruby Version
+      shell: bash -lc "rbenv global {{ ruby_version }} && rbenv rehash"
+      when:
+        - ruby_installed.rc != 0
+
+    - name: Set .gemrc
+      copy: src=files/gemrc dest=~/.gemrc
+
+    - name: Install Bundler & Rails
+      shell: bash -lc "gem install bundler rails"

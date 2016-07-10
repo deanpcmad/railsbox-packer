@@ -1,0 +1,6 @@
+if [ -d "$HOME/.rbenv" ]; then
+  export GEM_PATH=$GEM_PATH:$HOME/.gems
+  export PATH=$HOME/.rbenv/bin:$PATH;
+  export RBENV_ROOT=$HOME/.rbenv;
+  eval "$(rbenv init -)";
+fi
