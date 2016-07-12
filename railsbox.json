@@ -70,11 +70,6 @@
   ],
   "provisioners": [
     {
-      "destination": "/tmp/metadata.json",
-      "source": "{{user `metadata`}}",
-      "type": "file"
-    },
-    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
@@ -83,7 +78,6 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/metadata.sh",
         "scripts/update.sh",
         "scripts/sshd.sh",
         "scripts/networking.sh",

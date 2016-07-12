@@ -65,12 +65,11 @@
 
     - name: Install Mysql
       become: yes
-      apt: name={{ item }}
+      apt: name={{ item }} install_recommends=yes
       with_items:
         - mysql-server
         - mysql-client
         - libmysqlclient-dev
-      install_recommends: yes
       when: install_mysql
 
     - name: Install Postgresql
