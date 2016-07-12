@@ -10,9 +10,6 @@
     install_mysql: yes
     install_sqlite: yes
   tasks:
-    - name: Pause execution while updates install
-      pause: seconds=60 prompt="Paused while Ubuntu installs security updates"
-
     - name: Add Postgresql Repo
       become: yes
       apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
@@ -73,6 +70,7 @@
         - mysql-server
         - mysql-client
         - libmysqlclient-dev
+      install_recommends: yes
       when: install_mysql
 
     - name: Install Postgresql
