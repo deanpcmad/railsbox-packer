@@ -29,6 +29,7 @@
       become: yes
       apt: name={{item}}
       with_items:
+        - vim
         - git
         - git-core
         - curl
