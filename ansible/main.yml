@@ -139,4 +139,4 @@
       shell: bash -lc "gem install bundler rails"
 
     - name: cd to /vagrant on login
-      lineinfile: dest=.bashrc line="cd /vagrant"
+      lineinfile: dest="~/.bashrc" line="cd /vagrant"
