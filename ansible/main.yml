@@ -63,6 +63,18 @@
         - sqlite3
       when: install_sqlite
 
+    - name: Set MySQL root password before installing
+      become: yes
+      debconf: name='mysql-server' question='mysql-server/root_password'
+        value='vagrant'
+        vtype='password'
+
+    - name: Confirm MySQL root password before installing
+      become: yes
+      debconf: name='mysql-server' question='mysql-server/root_password_again'
+        value='vagrant'
+        vtype='password'
+
     - name: Install Mysql
       become: yes
       apt: name={{ item }} install_recommends=yes
@@ -70,6 +82,7 @@
         - mysql-server
         - mysql-client
         - libmysqlclient-dev
+        - python-mysqldb
       when: install_mysql
 
     - name: Install Postgresql
@@ -123,3 +136,6 @@
 
     - name: Install Bundler & Rails
       shell: bash -lc "gem install bundler rails"
+
+    - name: cd to /vagrant on login
+      lineinfile: dest=.bashrc line="cd /vagrant"
