@@ -64,17 +64,15 @@
         - sqlite3
       when: install_sqlite
 
-    - name: Set MySQL root password before installing
+    - name: Configure mysql step 1
+      shell: echo mysql-server mysql-server/root_password password vagrant | debconf-set-selections
       become: yes
-      debconf: name='mysql-server' question='mysql-server/root_password'
-        value='vagrant'
-        vtype='password'
+      when: install_mysql
 
-    - name: Confirm MySQL root password before installing
+    - name: Configure mysql step 2
+      shell: echo mysql-server mysql-server/root_password_again password vagrant | debconf-set-selections
       become: yes
-      debconf: name='mysql-server' question='mysql-server/root_password_again'
-        value='vagrant'
-        vtype='password'
+      when: install_mysql
 
     - name: Install Mysql
       become: yes
@@ -85,6 +83,21 @@
         - libmysqlclient-dev
         - python-mysqldb
       when: install_mysql
+
+    - name: Set mysql root password
+      mysql_user: name=root
+                  password=""
+                  check_implicit_admin=yes
+                  login_user="root"
+                  login_password="vagrant"
+                  state=present
+                  check_implicit_admin=yes
+                  update_password=always
+                  host={{ item }}
+      with_items:
+        - "127.0.0.1"
+        - "::1"
+        - "localhost"
 
     - name: Install Postgresql
       become: yes

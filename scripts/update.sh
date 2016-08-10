@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/bin/bash -eux
 
 # Disable release-upgrades
 sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
@@ -10,8 +10,3 @@ apt-get -y update;
 apt-get -y dist-upgrade --force-yes;
 reboot;
 sleep 60;
-
-# Disable periodic activities of apt
-cat <<EOF >/etc/apt/apt.conf.d/10disable-periodic
-APT::Periodic::Enable "0";
-EOF
