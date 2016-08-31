@@ -27,7 +27,7 @@
 
     - name: Install Ruby Dependencies
       become: yes
-      apt: name={{item}}
+      apt: name={{item}} install_recommends=yes
       with_items:
         - vim
         - git
@@ -46,19 +46,19 @@
 
     - name: Install Nodejs Runtime
       become: yes
-      apt: name={{item}}
+      apt: name={{item}} install_recommends=yes
       with_items:
         - nodejs
         - npm
 
     - name: Install Redis
       become: yes
-      apt: name=redis-server
+      apt: name=redis-server install_recommends=yes
       when: install_redis
 
     - name: Install Sqlite
       become: yes
-      apt: name={{ item }}
+      apt: name={{ item }} install_recommends=yes
       with_items:
         - libsqlite3-dev
         - sqlite3
@@ -101,7 +101,7 @@
 
     - name: Install Postgresql
       become: yes
-      apt: name={{ item }}
+      apt: name={{ item }} install_recommends=yes
       with_items:
         - postgresql-common
         - postgresql-9.4
