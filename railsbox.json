@@ -108,7 +108,7 @@
   ],
   "variables": {
     "box_basename": "railsbox",
-    "cpus": "4",
+    "cpus": "2",
     "memory": "4096",
     "disk_size": "40960",
     "headless": "true",

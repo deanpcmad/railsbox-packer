@@ -108,6 +108,11 @@
         - libpq-dev
       when: install_postgres
 
+    - name: Ensure pg user exists
+      become: yes
+      become_user: postgres
+      postgresql_user: name=vagrant priv=ALL state=present role_attr_flags=CREATEDB,SUPERUSER,CREATEROLE,CREATEUSER,INHERIT,LOGIN
+
     - name: Clone rbenv to ~/.rbenv
       git: repo=https://github.com/sstephenson/rbenv.git
         dest=~/.rbenv
