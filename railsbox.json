@@ -79,6 +79,7 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "scripts/update.sh",
+        "scripts/sleep.sh",
         "scripts/sshd.sh",
         "scripts/networking.sh",
         "scripts/sudoers.sh",

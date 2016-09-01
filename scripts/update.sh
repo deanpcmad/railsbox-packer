@@ -9,4 +9,4 @@ apt-get -y update;
 # Upgrade all installed packages incl. kernel and kernel headers
 apt-get -y dist-upgrade --force-yes;
 reboot;
-sleep 60;
+sleep 30;
