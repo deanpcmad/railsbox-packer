@@ -21,6 +21,9 @@
         state=present
       when: install_postgres
 
+    - name: Set local
+      locale_gen: name=en_US.UTF-8 state=present
+
     - name: Update Apt Cache
       become: yes
       apt: update_cache=yes
@@ -107,6 +110,11 @@
         - postgresql-9.4
         - libpq-dev
         - python-psycopg2
+      when: install_postgres
+
+    - name: Create Postgresql role
+      become: yes
+      command: sudo -u postgres createuser vagrant --createdb --no-superuser --no-createrole
       when: install_postgres
 
     - name: Clone rbenv to ~/.rbenv
