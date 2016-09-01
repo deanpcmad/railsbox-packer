@@ -3,6 +3,8 @@
 # Disable release-upgrades
 sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
 
+/usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
 # Update the package list
 apt-get -y update;
 

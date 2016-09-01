@@ -21,10 +21,10 @@
         state=present
       when: install_postgres
 
-    - name: Set local
+    - name: Locale step 1
       locale_gen: name=en_US.UTF-8 state=present
 
-    - name: Set local .bashrc
+    - name: Locale step 2
       lineinfile: dest="~/.bashrc" line='export LANG="en_US.UTF-8"'
 
     - name: Update Apt Cache
