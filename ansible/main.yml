@@ -24,6 +24,9 @@
     - name: Set local
       locale_gen: name=en_US.UTF-8 state=present
 
+    - name: Set local .bashrc
+      lineinfile: dest="~/.bashrc" line='export LANG="en_US.UTF-8"'
+
     - name: Update Apt Cache
       become: yes
       apt: update_cache=yes
