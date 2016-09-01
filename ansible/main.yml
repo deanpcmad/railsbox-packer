@@ -25,7 +25,7 @@
       become: yes
       apt: update_cache=yes
 
-    - name: Install Ruby Dependencies
+    - name: Install Dependencies
       become: yes
       apt: name={{item}} install_recommends=yes
       with_items:
@@ -106,12 +106,21 @@
         - postgresql-common
         - postgresql-9.4
         - libpq-dev
+        - python-psycopg2
+      when: install_postgres
+
+    - name: Creata pg database
+      become: yes
+      postgresql_db: name=vagrant_development
       when: install_postgres
 
     - name: Ensure pg user exists
       become: yes
-      become_user: postgres
-      postgresql_user: name=vagrant priv=ALL state=present role_attr_flags=CREATEDB,SUPERUSER,CREATEROLE,CREATEUSER,INHERIT,LOGIN
+      postgresql_user: name=vagrant
+        priv=ALL
+        state=present
+        role_attr_flags=CREATEDB,SUPERUSER,CREATEROLE,CREATEUSER,INHERIT,LOGIN
+      when: install_postgres
 
     - name: Clone rbenv to ~/.rbenv
       git: repo=https://github.com/sstephenson/rbenv.git
