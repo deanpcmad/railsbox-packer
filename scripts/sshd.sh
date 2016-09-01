@@ -1,5 +1,7 @@
 #!/bin/sh -eux
 
+sleep 60
+
 SSHD_CONFIG="/etc/ssh/sshd_config"
 
 # ensure that there is a trailing newline before attempting to concatenate

@@ -109,19 +109,6 @@
         - python-psycopg2
       when: install_postgres
 
-    - name: Creata pg database
-      become: yes
-      postgresql_db: name=vagrant_development
-      when: install_postgres
-
-    - name: Ensure pg user exists
-      become: yes
-      postgresql_user: name=vagrant
-        priv=ALL
-        state=present
-        role_attr_flags=CREATEDB,SUPERUSER,CREATEROLE,CREATEUSER,INHERIT,LOGIN
-      when: install_postgres
-
     - name: Clone rbenv to ~/.rbenv
       git: repo=https://github.com/sstephenson/rbenv.git
         dest=~/.rbenv
