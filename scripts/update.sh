@@ -1,14 +1,13 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash
 
-# Disable release-upgrades
-sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
+# Update Package List
 
-/usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+apt-get update
 
-# Update the package list
-apt-get -y update;
+# Install Kernel Headers
 
-# Upgrade all installed packages incl. kernel and kernel headers
-apt-get -y dist-upgrade --force-yes;
-reboot;
-sleep 30;
+apt-get install -y linux-headers-$(uname -r) build-essential
+
+# Upgrade System Packages
+
+apt-get -y upgrade

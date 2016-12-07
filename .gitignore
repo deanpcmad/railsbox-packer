@@ -1,13 +1,3 @@
-.bundle/
-iso
+/.vagrant
 *.box
-virtualfloppy.vfd
-packer_cache
-packer.log
-.DS_Store
-/packer-*/
-*.variables.json
-/builds/
-.kitchen
-.kitchen.*.yml
-*.retry
+*.log
