@@ -60,7 +60,7 @@ apt-get install -y sqlite3 libsqlite3-dev
 
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password root"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password root"
-sudo apt-get install -y mysql-server-5.7
+sudo apt-get install -y mysql-server-5.7 libmysqlclient-dev
 
 # Configure MySQL Password Lifetime
 
@@ -78,11 +78,16 @@ apt-get install -y postgresql
 
 # Install A Few Other Things
 
-apt-get install -y redis-server
+apt-get install -y redis-server nodejs
+
+# Go to /vagrant on login
+su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
+su -l -c "echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc" vagrant
 
 # Enable Swap Memory
 
 /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+chmod 600 /var/swap.1
 /sbin/mkswap /var/swap.1
 /sbin/swapon /var/swap.1
 

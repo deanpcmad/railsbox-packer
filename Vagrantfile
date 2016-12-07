@@ -1,6 +1,4 @@
-VAGRANTFILE_API_VERSION = 2
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure(2) do |config|
   # Configure The Box
   config.vm.box = 'bento/ubuntu-16.04'
   config.vm.hostname = 'railsbox'
@@ -8,10 +6,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Don't Replace The Default Key https://github.com/mitchellh/vagrant/pull/4707
   config.ssh.insert_key = false
 
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ['modifyvm', :id, '--memory', '2048']
-    vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
-    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+  config.vm.provider :virtualbox do |v|
+    v.name = config.vm.hostname
+    v.memory = 4096
+    v.cpus = 4
+    v.customize [
+      'modifyvm', :id,
+      '--nictype1', 'virtio',
+      '--name', config.vm.hostname,
+      '--natdnshostresolver1', 'on'
+    ]
   end
 
   # Configure Port Forwarding
