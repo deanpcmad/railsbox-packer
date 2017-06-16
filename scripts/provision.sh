@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 
 # Update System Packages
-apt-get -y upgrade
+apt-get -y dist-upgrade
 
 # Force Locale
 
