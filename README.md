@@ -6,8 +6,10 @@ You can find the box hosted on Atlas [here](https://atlas.hashicorp.com/joshfng/
 
 ## Development
 All the work is done in `scripts/provision.sh`, modify it to suite your needs.
+
 ```shell
-./build.sh```
+./build.sh
+```
 
 This will build the vagrant box available as `virtualbox.box`
 
