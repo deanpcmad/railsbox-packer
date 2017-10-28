@@ -8,7 +8,7 @@ apt-get update
 
 # Install Kernel Headers
 
-apt-get install -y linux-headers-$(uname -r) build-essential
+apt-get install -y linux-headers-$(uname -r) build-essential curl zip unzip
 
 # Upgrade System Packages
 

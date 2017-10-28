@@ -18,7 +18,12 @@ locale-gen en_US.UTF-8
 
 apt-get install -y software-properties-common curl
 apt-add-repository ppa:chris-lea/redis-server -y
-curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
+
+# Install node
+curl --silent --location https://deb.nodesource.com/setup_7.x | bash -
+
+# Update npm
+npm install npm@latest -g
 
 # Update Package Lists
 
@@ -80,20 +85,4 @@ apt-get install -y postgresql
 
 apt-get install -y redis-server nodejs
 
-# Go to /vagrant on login
-su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
 su -l -c "echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc" vagrant
-
-# Enable Swap Memory
-
-/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-chmod 600 /var/swap.1
-/sbin/mkswap /var/swap.1
-/sbin/swapon /var/swap.1
-
-# Minimize The Disk Image
-
-echo "Minimizing disk image..."
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
-sync

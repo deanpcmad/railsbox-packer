@@ -8,8 +8,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider :virtualbox do |v|
     v.name = config.vm.hostname
-    v.memory = 4096
-    v.cpus = 4
+    v.memory = 2048
+    v.cpus = 2
     v.customize [
       'modifyvm', :id,
       '--nictype1', 'virtio',
@@ -18,13 +18,12 @@ Vagrant.configure(2) do |config|
     ]
   end
 
-  # Configure Port Forwarding
-  config.vm.network 'forwarded_port', guest: 3000, host: 3000
-
   config.vm.synced_folder './', '/vagrant', disabled: true
 
   # Run The Base Provisioning Script
   config.vm.provision 'shell', path: './scripts/update.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './scripts/provision.sh'
+  config.vm.provision 'shell', path: './scripts/browsers.sh'
+  config.vm.provision 'shell', path: './scripts/cleanup.sh'
 end
