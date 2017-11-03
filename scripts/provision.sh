@@ -19,12 +19,6 @@ locale-gen en_US.UTF-8
 apt-get install -y software-properties-common curl
 apt-add-repository ppa:chris-lea/redis-server -y
 
-# Install node
-curl --silent --location https://deb.nodesource.com/setup_7.x | bash -
-
-# Update npm
-npm install npm@latest -g
-
 # Update Package Lists
 
 apt-get update
@@ -40,6 +34,14 @@ libffi-dev
 # Set Timezone
 
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
+# Install Node and NPM
+su -l -c 'touch ~/.bash_profile' vagrant
+su -l -c 'export PROFILE=~/.bash_profile && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash' vagrant
+su -l -c 'source ~/.bash_profile' vagrant
+su -l -c 'nvm install node' vagrant
+su -l -c 'node --version' vagrant
+su -l -c 'npm --version' vagrant
 
 # Install Ruby
 
