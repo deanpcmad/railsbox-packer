@@ -81,10 +81,17 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=vagrant m
 
 # Install Postgres
 
-apt-get install -y postgresql
+apt-get install -y postgresql libpq-dev
+
+# allow vagrant user to create databases
+sed -i 's/md5/trust/g' /etc/postgresql/9.5/main/pg_hba.conf
+sudo -u postgres createuser --superuser --createdb vagrant
+echo "listen_addresses = '*'" >> /etc/postgresql/9.5/main/postgresql.conf
+
+service postgresql restart
 
 # Install A Few Other Things
 
-apt-get install -y redis-server nodejs
+apt-get install -y redis-server
 
 su -l -c "echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc" vagrant
