@@ -3,6 +3,9 @@
 # install required vagrant plugin to handle reloads during provisioning
 vagrant plugin install vagrant-reload
 
+# install plugin to update virtualbox guest additions to latest version
+vagrant plugin install vagrant-vbguest
+
 # start with no machines
 vagrant destroy -f
 rm -rf .vagrant
