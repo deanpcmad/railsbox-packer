@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+vagrant box remove bento/ubuntu-16.04
+
 # install required vagrant plugin to handle reloads during provisioning
 vagrant plugin install vagrant-reload
 
