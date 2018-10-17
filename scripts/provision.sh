@@ -84,9 +84,10 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=vagrant m
 apt-get install -y postgresql libpq-dev
 
 # allow vagrant user to create databases
-sed -i 's/md5/trust/g' /etc/postgresql/9.5/main/pg_hba.conf
+sed -i 's/md5/trust/g' /etc/postgresql/10/main/pg_hba.conf
 sudo -u postgres createuser --superuser --createdb vagrant
-echo "listen_addresses = '*'" >> /etc/postgresql/9.5/main/postgresql.conf
+ls /etc/postgresql
+echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
 
 service postgresql restart
 
