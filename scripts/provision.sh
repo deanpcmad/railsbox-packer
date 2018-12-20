@@ -54,8 +54,8 @@ su -l -c 'cd ~/.rbenv && src/configure && make -C src' vagrant
 su -l -c 'touch ~/.bash_profile' vagrant
 su -l -c "echo 'export PATH=\"\$HOME/.rbenv/bin:\$PATH\"' >> ~/.bash_profile" vagrant
 su -l -c "echo 'eval \"\$(rbenv init -)\"' >> ~/.bash_profile" vagrant
-su -l -c 'rbenv install 2.5.1 && rbenv rehash' vagrant
-su -l -c 'rbenv global 2.5.1 && rbenv rehash' vagrant
+su -l -c 'rbenv install 2.5.3 && rbenv rehash' vagrant
+su -l -c 'rbenv global 2.5.3 && rbenv rehash' vagrant
 
 su -l -c 'gem install bundler rails --no-ri --no-rdoc' vagrant
 
