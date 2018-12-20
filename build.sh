@@ -11,6 +11,7 @@ vagrant plugin install vagrant-vbguest
 # start with no machines
 vagrant destroy -f
 rm -rf .vagrant
+rm -rf virtualbox.box
 
 time vagrant up --provider virtualbox 2>&1 | tee virtualbox-build-output.log
 vagrant halt

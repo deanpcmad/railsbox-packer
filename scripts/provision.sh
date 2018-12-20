@@ -17,7 +17,6 @@ locale-gen en_US.UTF-8
 # Install Some PPAs
 
 apt-get install -y software-properties-common curl
-apt-add-repository ppa:chris-lea/redis-server -y
 
 # Update Package Lists
 
@@ -91,8 +90,9 @@ echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
 
 service postgresql restart
 
-# Install A Few Other Things
+# Install Redis
 
-apt-get install -y redis-server
+apt-get install -y redis
+systemctl enable redis-server
 
 su -l -c "echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc" vagrant
