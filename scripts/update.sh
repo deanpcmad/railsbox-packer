@@ -12,4 +12,4 @@ apt-get install -y linux-headers-$(uname -r) build-essential curl zip unzip
 
 # Upgrade System Packages
 
-apt-get -y dist-upgrade
+apt-get dist-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes
