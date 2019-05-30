@@ -2,10 +2,13 @@
 
 # Enable Swap Memory
 
-/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-chmod 600 /var/swap.1
-/sbin/mkswap /var/swap.1
-/sbin/swapon /var/swap.1
+fallocate -l 5G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+free -h
 
 # Minimize The Disk Image
 
