@@ -63,22 +63,6 @@ su -l -c 'gem install bundler rails --no-document' vagrant
 
 apt-get install -y sqlite3 libsqlite3-dev
 
-# Install MySQL
-
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password root"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password root"
-sudo apt-get install -y mysql-server-5.7 libmysqlclient-dev
-
-# Configure MySQL Password Lifetime
-
-echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
-
-service mysql restart
-
-# Add Timezone Support To MySQL
-
-mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=vagrant mysql
-
 # Install Postgres
 
 apt-get install -y postgresql libpq-dev
