@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Vagrant.configure(2) do |config|
   # Configure The Box
   config.vm.box = 'bento/ubuntu-18.04'
@@ -17,6 +19,8 @@ Vagrant.configure(2) do |config|
       '--natdnshostresolver1', 'on'
     ]
   end
+
+  config.vagrant.plugins = ['vagrant-reload', 'vagrant-vbguest']
 
   config.vm.synced_folder './', '/vagrant', disabled: true
 

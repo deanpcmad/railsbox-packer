@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
+vagrant plugin install --local
 vagrant box remove bento/ubuntu-18.04
-
-# install required vagrant plugin to handle reloads during provisioning
-vagrant plugin install vagrant-reload
-
-# install plugin to update virtualbox guest additions to latest version
-vagrant plugin install vagrant-vbguest
 
 # start with no machines
 vagrant destroy -f
 rm -rf .vagrant
 rm -rf virtualbox.box
+rm -rf virtualbox-build-output.log
+
+vagrant plugin install --local
 
 time vagrant up --provider virtualbox 2>&1 | tee virtualbox-build-output.log
 vagrant halt
