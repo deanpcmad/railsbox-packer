@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider :virtualbox do |v|
     v.name = config.vm.hostname
     v.memory = 4096
-    v.cpus = 4
+    v.cpus = 8
     v.customize [
       'modifyvm', :id,
       '--nictype1', 'virtio',
