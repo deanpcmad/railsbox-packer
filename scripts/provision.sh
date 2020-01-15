@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export DEBIAN_FRONTEND=noninteractive
-export RUBY_VERSION=2.6.3
+export RUBY_VERSION=2.7.0
 
 # Update Package List
 
