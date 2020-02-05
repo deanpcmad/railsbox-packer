@@ -3,3 +3,5 @@
 *.log
 .DS_Store
 *_bak
+ruby_19/.vagrant
+ruby_27/.vagrant
