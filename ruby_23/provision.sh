@@ -27,7 +27,7 @@ apt-get install -y build-essential dos2unix gcc git libmcrypt4 libpcre3-dev \
 make python2.7-dev python-pip re2c unattended-upgrades whois vim \
 libnotify-bin git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev \
 libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties \
-libffi-dev
+libffi-dev imagemagick libmagickcore-dev libmagickwand-dev
 
 # Set Timezone
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
@@ -55,9 +55,15 @@ su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
 su -l -c "rbenv rehash >> ~/.bash_profile" vagrant
 
 # Install MariDB
-apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+wget -qO - https://mariadb.org/mariadb_release_signing_key.asc | sudo apt-key add -
 add-apt-repository -y 'deb [arch=amd64,arm64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu xenial main'
+
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password PASS'
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password PASS'
+
 apt install -y mariadb-server mariadb-client libmysqlclient-dev
+
+mysql -uroot -pPASS -e "SET PASSWORD = PASSWORD('');"
 
 # Install Redis
 apt-get install -y redis-server

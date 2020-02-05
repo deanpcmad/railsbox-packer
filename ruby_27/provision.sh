@@ -27,7 +27,7 @@ apt-get install -y build-essential dos2unix gcc git libmcrypt4 libpcre3-dev \
 make python2.7-dev python-pip re2c unattended-upgrades whois vim \
 libnotify-bin git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev \
 libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties \
-libffi-dev
+libffi-dev imagemagick libmagickcore-dev libmagickwand-dev
 
 # Set Timezone
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
