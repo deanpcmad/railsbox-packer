@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export DEBIAN_FRONTEND=noninteractive
-export RUBY_VERSION=2.7.0
+export RUBY_VERSION=2.3.8
 
 # Update Package List
 apt-get update
@@ -32,7 +32,7 @@ libffi-dev
 # Set Timezone
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
-# Install Node and NPM
+# Install Node
 apt install -y nodejs
 
 # Install Ruby
@@ -54,11 +54,10 @@ su -l -c 'gem install bundler -v 1.17.3' vagrant
 su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
 su -l -c "rbenv rehash >> ~/.bash_profile" vagrant
 
-# Install MariaBD
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/10.4/ubuntu bionic main'
+# Install MariDB
+apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+add-apt-repository -y 'deb [arch=amd64,arm64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu xenial main'
 apt install -y mariadb-server mariadb-client libmysqlclient-dev
 
 # Install Redis
-apt-get install -y redis
-systemctl enable redis-server
+apt-get install -y redis-server

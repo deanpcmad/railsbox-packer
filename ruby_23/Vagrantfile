@@ -3,7 +3,7 @@
 Vagrant.configure(2) do |config|
   # Configure The Box
   config.vm.box = 'bento/ubuntu-16.04'
-  config.vm.hostname = 'ruby22'
+  config.vm.hostname = 'ruby23'
 
   # Don't Replace The Default Key https://github.com/mitchellh/vagrant/pull/4707
   config.ssh.insert_key = false

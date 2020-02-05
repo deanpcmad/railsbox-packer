@@ -48,8 +48,11 @@ su -l -c "echo 'eval \"\$(rbenv init -)\"' >> ~/.bash_profile" vagrant
 su -l -c "rbenv install $RUBY_VERSION" vagrant
 su -l -c "rbenv global $RUBY_VERSION" vagrant
 
-su -l -c 'gem install bundler -v 1.17.3 --no-document' vagrant
-su -l -c "rbenv rehash" vagrant
+su -l -c "echo 'gem: --no-document' >> ~/.gemrc" vagrant
+su -l -c 'gem install bundler -v 1.17.3' vagrant
+
+su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
+su -l -c "rbenv rehash >> ~/.bash_profile" vagrant
 
 # Install MariDB
 apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
@@ -58,6 +61,3 @@ apt install -y mariadb-server mariadb-client libmysqlclient-dev
 
 # Install Redis
 apt-get install -y redis-server
-
-su -l -c "echo 'gem: --no-document' >> ~/.gemrc" vagrant
-su -l -c "echo 'cd /vagrant' >> ~/.bash_profile" vagrant
