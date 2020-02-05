@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export DEBIAN_FRONTEND=noninteractive
-export RUBY_VERSION=1.9.3-p551
+export RUBY_VERSION=2.2.9
 
 # Update Package List
 apt-get update
